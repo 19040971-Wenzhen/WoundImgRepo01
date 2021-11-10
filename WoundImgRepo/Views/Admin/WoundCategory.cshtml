@@ -1,0 +1,122 @@
+﻿@model List<WoundCategory>
+@{ Layout = "_Layout"; }
+@if (TempData["Msg"] != null)
+{
+    <div class="alert alert-@TempData["MsgType"]">
+        @TempData["Msg"]
+    </div>}
+
+@section MoreScripts {
+    <script>
+        function addWoundCategory() {
+            var name = $('#woundCategoryName').val();
+            window.location = 'AddWoundCategory?name=' + name;
+        }
+
+        function editWoundCategory() {
+            var name = $('#editWoundCategoryName').val();
+            var id = $('#editWoundCategoryId').val();
+            window.location = 'EditWoundCategory?name=' + name + '&id=' + id;
+        }
+
+        function setEditWoundCategoryName(id, name) {
+            $('#editWoundCategoryId').val(id);
+            $('#editWoundCategoryName').val(name);
+        }
+    </script>
+}
+
+<h2 class="mb-4 mt-4">Wound Category</h2>
+
+<div class="mb-4">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addWoundCategoryModal">
+        Add
+    </button>
+</div>
+<!-- add wound category modal -->
+<div class="modal fade" id="addWoundCategoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Add new wound category</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-sm-4">Wound Category:</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" type="text" id="woundCategoryName" autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-4 col-sm-6">
+                        <button id="versionid" type="button" class="btn btn-primary" onclick="addWoundCategory()">
+                            Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- edit wound category modal -->
+<div class="modal fade" id="editWoundCategoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Edit version</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-sm-4">Wound Category:</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" type="text" id="editWoundCategoryName" autocomplete="off">
+                        <input class="form-control" type="hidden" id="editWoundCategoryId">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-4 col-sm-6">
+                        <button type="button" class="btn btn-primary" onclick="editWoundCategory()">
+                            Update
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-condensed table-hover table-striped">
+    <thead>
+        <tr>
+            <th scope="col" width="20%">Wound Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (WoundCategory wc in Model)
+        {
+            <tr scope="row">
+                <td width="20%">@wc.name</td>
+                <td width="20%">
+                    <a asp-route-id="@wc.wound_category_id"
+                       data-toggle="modal"
+                       data-target="#editWoundCategoryModal"
+                       onclick="setEditWoundCategoryName(@wc.wound_category_id,'@wc.name')">
+                        Edit
+                    </a>
+                <td width="20%">
+                    <a asp-controller="Admin"
+                       asp-action="DeleteWoundCategory"
+                       asp-route-id="@wc.wound_category_id"
+                       onclick="return confirm('Delete Wound Category [@wc.name]')">
+                        Delete
+                    </a>
+            </tr>
+        }
+    </tbody>
+</table>

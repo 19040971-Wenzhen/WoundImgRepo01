@@ -1,0 +1,55 @@
+@model WoundImgRepo.Models.LogInUser
+
+<form asp-controller="Account"
+      asp-action="LoginPage"
+      method="post">
+
+    <h2>Please Sign In</h2>
+
+    <div class="col-sm-5">
+        <!--Homepage - This is for LogInUser Index-->
+        @*email fill in*@
+        <div class="form-group row">
+
+        </div>
+        <div class="form-group row">
+            <label asp-for="Username" class="control-label">Username: </label>
+            <label asp-for="Username" for="Username" class="sr-only">username</label>
+            <input asp-for="Username" id="Username" class="form-control" placeholder="Username" autofocus="" autocomplete="off">
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+
+
+        @*password fill in*@
+        <div class="form-group row">
+            <label asp-for="Password" class="control-label">Password: </label>
+            <label asp-for="Password" for="Password" class="sr-only">Password</label>
+            <input asp-for="Password" id="Password" class="form-control" placeholder="Password" autofocus="" autocomplete="off">
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        @*Remember me*@
+        <div class="form-group row">
+            <div class="form-check">
+                <input asp-for="RememberMe" class="form-check-input" autocomplete="off" />
+                <label asp-for="RememberMe" class="form-chck-label">
+                    Remember Me
+                </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <a href="~/Account/forgetmeone">Forget password</a>
+        </div>
+        @*print error message*@
+
+        @if (ViewData["Msg"] != null)
+        {
+            <div class="form-group row">
+                <div class="alert alert-@ViewData["MsgType"]">
+                    <text>@ViewData["Msg"]</text>
+                </div>
+            </div>
+        }
+
+    </div>
+    <input type="submit" class="btn btn-primary" value="Login" />
+</form>

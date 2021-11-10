@@ -1,0 +1,95 @@
+﻿@model CombineClass
+<style>
+    .title {
+        font-weight: 500;
+    }
+</style>
+<form asp-controller="Wound" asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="form-group row mb-4">
+        <div class="col-sm-6">
+            <h2>Create Wound</h2>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-4 mr-5">
+            <div class="mb-2">
+                <label class="title" asp-for="wound.name">Wound Name: </label>
+                <input class="form-control form-control-sm" asp-for="wound.name" autocomplete="off">
+                <span class="text-danger" asp-validation-for="wound.name"></span>
+            </div>
+            <div class="mb-2">
+                <label class="title" asp-for="wound.wound_stage">Wound Stage: </label>
+                <input class="form-control form-control-sm" asp-for="wound.wound_stage" autocomplete="off">
+                <span class="text-danger" asp-validation-for="wound.wound_stage"></span>
+            </div>
+            <div class="mb-2">
+                <label class="title" asp-for="woundl.name">Wound Location: </label>
+                <input class="form-control form-control-sm" asp-for="woundl.name" autocomplete="off">
+                <span class="text-danger" asp-validation-for="woundl.name"></span>
+            </div>
+            <div class="mb-2">
+                <label class="title" asp-for="woundc.name">Wound Category: </label>
+                <select class="form-control form-control-sm" asp-items="@((SelectList)ViewData["woundCategory"])" asp-for="woundc.name">
+                    <option value="">-SELECT-</option>
+                </select>
+                <span class="text-danger" asp-validation-for="woundc.name"></span>
+            </div>
+            <div class="mb-2">
+                <label class="title" asp-for="tissue.name">Wound Tissue: </label>
+                <select class="form-control form-control-sm" asp-items="@((SelectList)ViewData["tissue"])" asp-for="tissue.name">
+                    <option value="">-SELECT-</option>
+                </select>
+                <span class="text-danger" asp-validation-for="tissue.name"></span>
+            </div>
+            <div class="mb-2">
+                <label class="title" asp-for="woundv.name">Image Version: </label>
+                <select class="form-control form-control-sm" asp-items="@((SelectList)ViewData["version"])" asp-for="woundv.name">
+                    <option value="">-SELECT-</option>
+                </select>
+                <span class="text-danger" asp-validation-for="woundv.name"></span>
+            </div>
+            <div class="mb-0">
+                <label class="title" asp-for="wound.remarks">Remarks: </label>
+                <input class="form-control form-control-sm" asp-for="wound.remarks" autocomplete="off">
+                <span class="text-danger" asp-validation-for="wound.remarks"></span>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="mb-2">
+                <label class="title" asp-for="image.Photo">Wound Image: </label>
+                <input type="file" asp-for="image.Photo" required>
+                <span asp-validation-for="image.Photo"></span>
+            </div>
+            <div class="mb-2">
+                <label class="title" asp-for="annotationimage">Annotation Image: </label>
+                <input type="file" asp-for="annotationimage" required>
+                <span asp-validation-for="annotationimage"></span>
+            </div>
+            <div class="mb-2">
+                <label class="title" asp-for="maskimage">Mask Image: </label>
+                <input type="file" asp-for="maskimage" required>
+                <span asp-validation-for="maskimage"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-4">
+            <input class="btn btn-primary" type="submit" value="Create">
+        </div>
+    </div>
+
+    @if (ViewData["Msg"] != null)
+    {
+        <div class="form-group row">
+            <div class="col-sm-4">
+                <div class="alert alert-@ViewData["MsgType"]">
+                    @ViewData["Msg"]
+                </div>
+            </div>
+        </div>
+    }
+</form>
+
+

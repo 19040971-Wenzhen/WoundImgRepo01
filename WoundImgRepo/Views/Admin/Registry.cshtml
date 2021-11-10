@@ -1,0 +1,100 @@
+@model User;
+
+<form asp-controller="Admin" asp-action="Registry" method="post">
+
+    <h2>Create New User</h2>
+    <div class="col-sm-5">
+
+        @*Username fill in*@
+        <div class="form-group row">
+
+        </div>
+        <div class="form-group row">
+            <label asp-for="username" class="control-label">Username: </label>
+            <label asp-for="username" for="username" class="sr-only">Username</label>
+            <input asp-for="username" id="username" class="form-control" placeholder="Username" autofocus="" autocomplete="off">
+            <span asp-validation-for="username" class="text-danger"></span>
+        </div>
+
+
+
+        @*password fill in*@
+        <div class="form-group row">
+            <label asp-for="password" class="control-label">Password (5 char. min): </label>
+            <label asp-for="password" for="password" class="sr-only">Password</label>
+            <input asp-for="password" id="password" class="form-control" placeholder="Password" autofocus="" autocomplete="off">
+            <span asp-validation-for="password" class="text-danger"></span>
+        </div>
+
+        @*password checker*@
+        <div class="form-group row">
+            <label asp-for="UserPw2" class="control-label">Confirm Password (5 char. min): </label>
+            <label asp-for="UserPw2" for="UserPw2" class="sr-only">Password </label>
+            <input asp-for="UserPw2" id="UserPw2" class="form-control" placeholder="Confirm Password" autofocus="" autocomplete="off">
+            <span asp-validation-for="UserPw2" class="text-danger"></span>
+        </div>
+
+        @*email*@
+        <div class="form-group row">
+            <label asp-for="email" class="control-label">Email: </label>
+            <label asp-for="email" for="email" class="sr-only">Email</label>
+            <input asp-for="email" type="email" id="email" class="form-control" placeholder="Email" autofocus="" autocomplete="off">
+            <span asp-validation-for="email" class="text-danger"></span>
+        </div>
+
+        @*Question*@
+        <div class="form-group row">
+            <label for="Qs" class="control-label">Security Question: </label>
+            <label id="Qs" name="Qs" for="Qs" class="sr-only">Email</label>
+            <input id="Qs" name="Qs" for="Qs" class="form-control" placeholder="Question" autofocus="" autocomplete="off">
+        </div>
+
+        @*answer*@
+        <div class="form-group row">
+            <label for="ans" class="control-label">Security Answer: </label>
+            <label id="ans" name="ans" for="ans" class="sr-only">Email</label>
+            <input id="ans" name="ans" for="ans" class="form-control" placeholder="Answer" autofocus="" autocomplete="off">
+        </div>
+
+        @*Select list *@
+        <div class="form-group row">
+            <label class="control-label col-sm-\2">User Role : </label>
+            <div class="col-sm-5">
+                <div class="form-check form-check-inline">
+                    <input type="radio" class="form-check-input" id="rb1"
+                           asp-for="user_role" value="Doctor" checked />
+                    <label class="form-check-label" for="rb1">Doctor</label>
+
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" class="form-check-input" id="rb2"
+                           asp-for="user_role" value="Annotator" />
+                    <label class="form-check-label" for="rb2">Annotator</label>
+
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input type="radio" class="form-check-input" id="rb3"
+                           asp-for="user_role" value="Admin" />
+                    <label class="form-check-label" for="rb3">Admin</label>
+                </div>
+            </div>
+        </div>
+
+
+        @*print error message*@
+        @if (ViewData["Msg"] != null)
+        {
+            <div class="form-group row">
+                <div class="offset-sm-2 col-sm-6">
+                    <div class="alert alert-@ViewData["MsgType"]">
+                        <text>@ViewData["Msg"]</text>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+        <input type="submit" class="btn btn-primary" value="Register" />
+</form>
+

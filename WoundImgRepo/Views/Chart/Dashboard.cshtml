@@ -1,0 +1,471 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@section MoreScripts {
+    <script src="~/lib/chartjs/Chart.min.js"></script>
+    <script src="~/lib/chartjs/chartjs-plugin-labels.min.js"></script>
+
+    <script language="javascript">
+
+
+      $(document).ready(function () {
+         new Chart(document.getElementById("chart"), {
+            type: '@ViewData["Chart"]',
+            data: {
+               labels: @Json.Serialize(ViewData["Labels"]),
+               datasets: [{
+                  label: '@ViewData["Legend"]',
+                  data: @Json.Serialize(ViewData["Data"]),
+                  backgroundColor: @Json.Serialize(ViewData["Colors"]),
+                  fill: false
+               }]
+            },
+             options: {
+               responsive: false,
+               scaleBeginAtZero: true,
+                legend: {
+                    display: @ViewData["ShowLegend"]
+               },
+                    scales: {
+                  yAxes: [{
+                     display: @(ViewData["Chart"].ToString().Equals("pie")?"false":"true"),
+                     gridLines: {
+                        display: false,
+                     },
+                     ticks: {
+                        beginAtZero: true,
+                        stepSize: 1
+                     }
+                  }]
+               },
+               title: {
+                  display: true,
+                  text: '@ViewData["Title"]'
+               }
+            }
+         });
+      });
+
+        $(document).ready(function () {
+         new Chart(document.getElementById("Catchart"), {
+            type: '@ViewData["CatChart"]',
+            data: {
+               labels: @Json.Serialize(ViewData["CatLabels"]),
+               datasets: [{
+                  label: '@ViewData["CatLegend"]',
+                  data: @Json.Serialize(ViewData["CatData"]),
+                  backgroundColor: @Json.Serialize(ViewData["CatColors"]),
+                  fill: false
+               }]
+            },
+             options: {
+               responsive: false,
+               scaleBeginAtZero: true,
+                legend: {
+                    display: @ViewData["CatShowLegend"]
+               },
+
+               title: {
+                  display: true,
+                  text: '@ViewData["CatTitle"]'
+               }
+            }
+         });
+      });
+        $(document).ready(function () {
+         new Chart(document.getElementById("UserChart"), {
+            type: '@ViewData["UserChart"]',
+            data: {
+               labels: @Json.Serialize(ViewData["UserLabels"]),
+               datasets: [{
+                  label: '@ViewData["UserLegend"]',
+                  data: @Json.Serialize(ViewData["UserData"]),
+                  backgroundColor: @Json.Serialize(ViewData["UserColors"]),
+                  fill: false
+               }]
+            },
+             options: {
+               responsive: false,
+               scaleBeginAtZero: true,
+                legend: {
+                    display: @ViewData["UserShowLegend"]
+               },
+                scales: {
+                  yAxes: [{
+                     display: @(ViewData["UserChart"].ToString().Equals("pie")?"false":"true"),
+                     gridLines: {
+                        display: false,
+                     },
+                     ticks: {
+                        beginAtZero: true,
+                        stepSize: 1
+                     }
+                  }]
+               },
+
+               title: {
+                  display: true,
+                  text: '@ViewData["UserTitle"]'
+               }
+            }
+         });
+        });
+        $(document).ready(function () {
+         new Chart(document.getElementById("VersionChart"), {
+            type: '@ViewData["VersionChart"]',
+            data: {
+               labels: @Json.Serialize(ViewData["VersionLabels"]),
+               datasets: [{
+                  label: '@ViewData["VersionLegend"]',
+                  data: @Json.Serialize(ViewData["VersionData"]),
+                  backgroundColor: @Json.Serialize(ViewData["VersionColors"]),
+                  fill: false
+               }]
+            },
+             options: {
+               responsive: false,
+               scaleBeginAtZero: true,
+                legend: {
+                    display: @ViewData["VersionShowLegend"]
+               },
+                scales: {
+                  yAxes: [{
+                     display: @(ViewData["VersionChart"].ToString().Equals("pie")?"false":"true"),
+                     gridLines: {
+                        display: false,
+                     },
+                     ticks: {
+                        beginAtZero: true,
+                        stepSize: 1
+                     }
+                  }]
+               },
+               title: {
+                  display: true,
+                  text: '@ViewData["VersionTitle"]'
+               }
+            }
+         });
+        });
+
+         $(document).ready(function () {
+         new Chart(document.getElementById("tissuechart"), {
+            type: '@ViewData["TissueChart"]',
+            data: {
+               labels: @Json.Serialize(ViewData["TissueLabels"]),
+               datasets: [{
+                  label: '@ViewData["TissueLegend"]',
+                  data: @Json.Serialize(ViewData["TissueData"]),
+                  backgroundColor: @Json.Serialize(ViewData["TissueColors"]),
+                  fill: false
+               }]
+            },
+             options: {
+               responsive: false,
+               scaleBeginAtZero: true,
+                legend: {
+                    display: @ViewData["TissueLegend"]
+               },
+                scales: {
+                  yAxes: [{
+                     display: @(ViewData["TissueChart"].ToString().Equals("pie")?"false":"true"),
+                     gridLines: {
+                        display: false,
+                     },
+                     ticks: {
+                        beginAtZero: true,
+                        stepSize: 1
+                     }
+                  }]
+               },
+               title: {
+                  display: true,
+                  text: '@ViewData["TissueTitle"]'
+               }
+            }
+         });
+         });
+
+         $(document).ready(function () {
+         new Chart(document.getElementById("imagechart"), {
+            type: '@ViewData["ImageChart"]',
+            data: {
+               labels: @Json.Serialize(ViewData["ImageLabels"]),
+               datasets: [{
+                  label: '@ViewData["ImageLegend"]',
+                  data: @Json.Serialize(ViewData["ImageData"]),
+                  backgroundColor: @Json.Serialize(ViewData["ImageColors"]),
+                  fill: false
+               }]
+            },
+             options: {
+               responsive: false,
+               scaleBeginAtZero: true,
+                legend: {
+                    display: @ViewData["ImageLegend"]
+               },
+                scales: {
+                  yAxes: [{
+                     display: @(ViewData["ImageChart"].ToString().Equals("pie")?"false":"true"),
+                     gridLines: {
+                        display: false,
+                     },
+                     ticks: {
+                        beginAtZero: true,
+                        stepSize: 1
+                     }
+                  }]
+               },
+               title: {
+                  display: true,
+                  text: '@ViewData["ImageTitle"]'
+               }
+            }
+         });
+      });
+    </script>
+
+    
+}
+
+<head>
+    <!-- style sheets references -->
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- script files references -->
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <h2 class="mb-4">Welcome to the Dashboard!</h2>
+        </div>
+        <div class="row">
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Highest Location Record
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    @ViewData["Maximum"]
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-book-medical fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Most frequent user
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        @ViewData["MaximumUsers"]
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class=" fas fa-user fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Total Records
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    @ViewData["TotalRecords"]
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Frequent tissue type
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    @ViewData["Tissue"]
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-notes-medical fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Total number of Original Images
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        @ViewData["TotalOriginalImages"]
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-photo-video fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Total number of Annotated Images
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        @ViewData["TotalAnnotatedImages"]
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-photo-video fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Total number of Mask images
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        @ViewData["TotalMaskImages"]
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-photo-video text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+        <div class=" row">
+            <div class="col-12 col-xl-10 col-md-6 col-xl-4">
+                <div class="card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs">
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Location">Wounds by Location</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Category">Wounds by Category</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Tissues">Wound by Tissues</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Versions">Versions</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Images">Images</a></li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Users">Display Users</a></li>
+                            }
+
+
+                        </ul>
+                    </div>
+
+                    <div class="tab-content" style="margin-top:10px">
+                        <div id="Location" class="tab-pane fade in active">
+                            <div class="card-body">
+                                <h2 class="m-0 font-weight-bold text-primary">Wound by @ViewData["Title"]</h2>
+
+                                <canvas id="chart" width="600" height="300"></canvas>
+                            </div>
+                        </div>
+                        <div id="Category" class="tab-pane fade">
+                            <div class="card-body">
+                                <h2 class="m-0 font-weight-bold text-primary">Wound by @ViewData["CatTitle"]</h2>
+
+                                <canvas id="Catchart" width="600" height="300"></canvas>
+
+                            </div>
+                        </div>
+                        <div id="Users" class="tab-pane fade">
+                            <div class="card-body">
+                                <h2 class="m-0 font-weight-bold text-primary">Display @ViewData["UserTitle"]</h2>
+
+                                <canvas id="UserChart" width="600" height="300"></canvas>
+
+                            </div>
+                        </div>
+                        <div id="Versions" class="tab-pane fade">
+                            <div class="card-body">
+                                <h2 class="m-0 font-weight-bold text-primary">Display @ViewData["VersionTitle"]</h2>
+
+                                <canvas id="VersionChart" width="600" height="300"></canvas>
+
+                            </div>
+                        </div>
+                        <div id="Tissues" class="tab-pane fade">
+                            <div class="card-body">
+                                <h2 class="m-0 font-weight-bold text-primary">Wound by @ViewData["TissueTitle"]</h2>
+
+                                <canvas id="tissuechart" width="600" height="300"></canvas>
+
+                            </div>
+                        </div>
+
+                        <div id="Images" class="tab-pane fade">
+                            <div class="card-body">
+                                <h2 class="m-0 font-weight-bold text-primary">Image @ViewData["ImageTitle"]</h2>
+
+                                <canvas id="imagechart" width="600" height="300"></canvas>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            </div>
+        </div>
+        </div>
+</body>

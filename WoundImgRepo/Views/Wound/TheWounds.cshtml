@@ -1,0 +1,159 @@
+@model List<WoundRecord>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-@TempData["MsgType"]">
+        @TempData["Message"]
+    </div>
+}
+
+<h2 class="mb-4">Home Page Wound</h2>
+
+<!--CHECKBOX for setting up search foundry-->
+@if (ViewBag.showhidecheckchecker == 1)
+{
+
+    <input type="checkbox" id="showhidefilterfoundry" name="showhidefilterfoundry" onclick="showhidesearchfoundry()" checked />
+}
+else
+{
+    <input type="checkbox" id="showhidefilterfoundry" name="showhidefilterfoundry" onclick="showhidesearchfoundry()" />
+}
+<label for="showhidefilterfoundry">On Filter foundry</label>
+
+
+<!--FIELD COLOR for setting up search foundry-->
+<style>
+    .field_set {
+        border-color: azure;
+    }
+</style>
+<!--hide and show for setting up search foundry-->
+<script>
+    //show or hide the search foundry
+    function showhidesearchfoundry() {
+        if (document.getElementById('showhidefilterfoundry').checked) {
+            document.getElementById('filterfoundry').style.display = 'block';
+        } else {
+            document.getElementById('filterfoundry').style.display = 'none';
+        }
+    }
+</script>
+
+
+<!--The search foundry-->
+<body onLoad="javascript:showhidesearchfoundry()">
+    <!--#region search-->
+    <form asp-controller="Wound" asp-action="findonmain">
+        <div class="col-sm-5 p-0">
+            <fieldset id="filterfoundry" class="field_set">
+                <!--Doing search-->
+                <h5 class="mt-4">Filter Foundry :</h5>
+                <h6>Filter out records you only need to see!</h6>
+                <div class="form-group row">
+                    <label class="col-sm-2 font-weight-bold">Section: </label>
+                    <div class="col-sm-3">
+                        <select id="searchedsection" name="searchedsection" for="searchedsection">
+                            <!--Viewbags are to be put inplace so as a user i don't have to keep reselecting my options if i made an error-->
+
+                            @if (ViewBag.selection == "w.name")
+                            {
+                                <option value="w.name" selected>Name</option>
+
+                            }
+                            else
+                            {
+                                <option value="w.name">Name</option>
+                            }
+                            @if (ViewBag.selection == "w.wound_stage")
+                            {
+                                <option value="w.wound_stage" selected>Stage </option>
+                            }
+                            else
+                            {
+                                <option value="w.wound_stage">Stage </option>
+                            }
+                            @if (ViewBag.selection == "w.remarks")
+                            {
+                                <option value="w.remarks" selected>Remarks</option>
+                            }
+                            else
+                            {
+                                <option value="w.remarks">Remarks</option>
+                            }
+                            @if (ViewBag.selection == "wc.name")
+                            {
+                                <option value="wc.name" selected>Category</option>
+                            }
+                            else
+                            {
+                                <option value="wc.name">Category</option>
+                            }
+                            @if (ViewBag.selection == "wl.name")
+                            {
+                                <option value="wl.name" selected>Location</option>
+                            }
+                            else
+                            {
+                                <option value="wl.name">Location</option>
+                            }
+
+                            @if (ViewBag.selection == "t.name")
+                            {
+                                <option value="t.name" selected>Tissue</option>
+                            }
+                            else
+                            {
+                                <option value="t.name">Tissue</option>
+                            }
+                            @if (ViewBag.selection == "v.name")
+                            {
+                                <option value="v.name" selected>Version</option>
+                            }
+                            else
+                            {
+                                <option value="v.name">Version</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-sm-8">
+                        @{ViewData["current"] = ViewBag.keyword; }
+                        <input id="searchedobj" name="searchedobj" for="searchedobj" class="form-control" placeholder="Place in keywords     " autofocus="" value=@ViewData["current"]>
+                    </div>
+                    <div class="col-sm-1">
+                        <input type="submit" class="btn btn-outline-primary" value="Go" />
+
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </form>
+   
+
+</body>
+
+
+
+
+<div class="row">
+    @foreach (WoundRecord row in Model)
+    {
+        <div class="col-sm-4">
+            <div class="card">
+                <a asp-controller="Wound" asp-action="Details" asp-route-id="@row.woundid">
+                    <img src="~/photos/@row.imagefile" class="card-img-top img-fluid" alt="Responsive image" />
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">@row.woundname</h5>
+                    <p class="card-text">@row.woundlocationname</p>
+                    <p class="card-text">@row.versionname</p>
+                    <a class="btn btn-primary btn-sm" asp-controller="Wound" asp-action="Details" asp-route-id="@row.woundid">Details</a>
+                    <a class="btn btn-primary btn-sm" asp-controller="Wound" asp-action="ZoomImage" asp-route-id="@row.woundid">Zoom Image</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+

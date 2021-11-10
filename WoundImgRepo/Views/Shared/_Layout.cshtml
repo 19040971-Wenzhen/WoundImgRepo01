@@ -1,0 +1,244 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/lib/jquery/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery/jquery.validate.unobtrusive.min.js"></script>
+    <link href="~/lib/font-awesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/brands.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/solid.min.css" rel="stylesheet" />
+    <script src="~/lib/chartjs/Chart.min.js"></script>
+    <script src="~/lib/chartjs/chartjs-plugin-labels.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+    <title>Wound Image Repository</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link href="~/css/SideBar.css" rel="stylesheet" />
+    @RenderSection("MoreScripts", required: false)
+
+    <style>
+        .page-wrapper .page-content > div {
+            padding: 50px 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-wrapper chiller-theme toggled">
+        <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+            <i class="fas fa-bars"></i>
+        </a>
+        <nav id="sidebar" class="sidebar-wrapper">
+
+            <div class="sidebar-content">
+                <div class="sidebar-brand">
+                    @if (User.IsInRole("Admin") || User.IsInRole("Annotator") || User.IsInRole("Doctor"))
+                    {
+                        <a href="~/Wound/TheWounds">Wound Image Repository</a>
+                    }
+                        <div id="close-sidebar">
+                            <i class="fas fa-times"></i>
+                        </div>
+                    </div>
+
+
+                <div class="sidebar-header">
+                    @if (User.IsInRole("Admin") || User.IsInRole("Annotator") || User.IsInRole("Doctor"))
+                    {
+                        <div class="user-pic">
+                            <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                                 alt="User picture">
+                        </div>
+                    }
+                    <div class="user-info">
+                        @User.Identity.Name
+
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <span class="user-role">Administrator</span>
+                        }
+                        @if (User.IsInRole("Annotator"))
+                        {
+                            <span class="user-role">Annotator</span>
+                        }
+                        @if (User.IsInRole("Doctor"))
+                        {
+                            <span class="user-role">Doctor</span>
+                        }
+
+                        @if (User.IsInRole("Admin") || User.IsInRole("Annotator") || User.IsInRole("Doctor"))
+                        {
+                            <span class="user-status">
+                                <i class="fa fa-circle"></i>
+
+
+                                <span>Online</span>
+
+                            </span>
+                        }
+                    </div>
+                </div>
+                <!-- sidebar-header  -->
+                <div class="sidebar-menu">
+                    <ul>
+                        @if (User.IsInRole("Admin") || User.IsInRole("Annotator") || User.IsInRole("Doctor"))
+                        {
+                            <li class="header-menu">
+                                <span>General</span>
+                            </li>
+                            <li class="sidebar-dropdown">
+                                <a href="#">
+                                    <i class="fas fa-band-aid"></i>
+                                    <span>Wounds</span>
+                                </a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        <li>
+                                            <a href="~/Wound/TheWounds">View Wound</a>
+                                        </li>
+                                        @if (User.IsInRole("Admin") || User.IsInRole("Annotator"))
+                                        {
+                                            <li>
+                                                <a href="~/Wound/Index">Wound Repository</a>
+                                            </li>
+                                            <li>
+                                                <a href="~/Wound/Create">Create Wound</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li class="sidebar-dropdown">
+                                <a href="#">
+                                    <i class="fa fa-chart-line"></i>
+                                    <span>Dashboard</span>
+                                </a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        <li>
+                                            <a href="~/Chart/Dashboard">Dashboard</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="sidebar-dropdown">
+                                <a href="#">
+                                    <i class="fas fa-users"></i>
+                                    <span>Users</span>
+                                </a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        <li>
+                                            <a href="~/Admin/Userlist">Manage Users</a>
+                                        </li>
+                                        <li>
+                                            <a href="~/Admin/Registry">Create New Users</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        }
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="sidebar-dropdown">
+                                <a href="#">
+                                    <i class="fas fa-database"></i>
+                                    <span>Metadata</span>
+                                </a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        <li>
+                                            <a href="~/Admin/Tissue">Tissue</a>
+                                        </li>
+                                        <li>
+                                            <a href="~/Admin/Version">Version</a>
+                                        </li>
+                                        <li>
+                                            <a href="~/Admin/WoundCategory">Category</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+                <!-- sidebar-menu  -->
+            </div>
+            <!-- sidebar-content  -->
+            <div class="sidebar-footer">
+                @if (User.IsInRole("Admin") || User.IsInRole("Annotator") || User.IsInRole("Doctor"))
+                {
+                    <a href="~/Wound/TheWounds">
+                        <i class="fas fa-home"></i>
+                    </a>
+                }
+                <a href="~/Account/Logoff">
+                    <i class="fa fa-power-off"></i>
+                </a>
+            </div>
+        </nav>
+        <!-- sidebar-wrapper  -->
+        <main class="page-content">
+            <div class="container-fluid">
+                @RenderBody()
+
+            </div>
+        </main>
+        <!-- page-content" -->
+    </div>
+
+    <script type="text/javascript">
+
+        $(".sidebar-dropdown > a").click(function () {
+            $(".sidebar-submenu").slideUp(200);
+            if (
+                $(this)
+                    .parent()
+                    .hasClass("active")
+            ) {
+                $(".sidebar-dropdown").removeClass("active");
+                $(this)
+                    .parent()
+                    .removeClass("active");
+            } else {
+                $(".sidebar-dropdown").removeClass("active");
+                $(this)
+                    .next(".sidebar-submenu")
+                    .slideDown(200);
+                $(this)
+                    .parent()
+                    .addClass("active");
+            }
+        });
+
+        $("#close-sidebar").click(function () {
+            $(".page-wrapper").removeClass("toggled");
+        });
+        $("#show-sidebar").click(function () {
+            $(".page-wrapper").addClass("toggled");
+        });
+    </script>
+</body>
+</html>
+
+
+
+

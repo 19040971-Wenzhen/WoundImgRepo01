@@ -1,0 +1,191 @@
+@{
+    Layout = "_Layout";
+}
+@model User
+
+
+
+
+<h2>Editing User : @TempData["id"]</h2>
+<h4>Username : @TempData["username"]</h4>
+
+<form asp-controller="Admin" asp-action="EditUser" method="post">
+
+
+    <div class="col-sm-5">
+
+        @*Username fill in*@
+        <div class="form-group row">
+
+
+
+        </div>
+        <div class="form-group row">
+            <label asp-for="username" class="control-label" hidden>Username: </label>
+            <label asp-for="username" for="username" class="sr-only" hidden>Username</label>
+            <!--If the user keys in something wrongly , the page usually refreshes. Thus it is important to keep the name of the data at least-->
+            <!--However it is important to display back the name if the data keyed in is empty-->
+            @if (TempData["usernamecurrently"] == "presentnamefirst" || TempData["usernamecurrently"] == "" || TempData["usernamecurrently"] == null)
+            {
+                <input asp-for="username" id="username" class="form-control" placeholder="Username" autofocus="" value=@TempData["username"] autocomplete="off" hidden>
+            }
+            else
+            {
+                <input asp-for="username" id="username" class="form-control" placeholder="Username" autofocus="" value=@TempData["usernamecurrently"] autocomplete="off" hidden>
+            }
+
+
+        </div>
+
+        <b>change password ?</b>
+        <p>keyed details won't be recorded unless permitted</p>
+
+        <div>
+            <label>permitted :</label>
+            <select asp-for="editPW" id="editPW">
+                <option value="0">False</option>
+                <option value="1">True</option>
+            </select>
+        </div>
+
+
+        @*password fill in*@
+        <div class="form-group row">
+            <label asp-for="password" class="control-label">Password (5 char. min): </label>
+            <label asp-for="password" for="password" class="sr-only">Password </label>
+            <input asp-for="password" id="password" class="form-control" placeholder="Password" autofocus="" autocomplete="off">
+            <span asp-validation-for="password" class="text-danger"></span>
+        </div>
+
+        @*password checker*@
+        <div class="form-group row">
+            <label asp-for="UserPw2" class="control-label">Confirm Password (5 char. min): </label>
+            <label asp-for="UserPw2" for="UserPw2" class="sr-only">Password </label>
+            <input asp-for="UserPw2" id="UserPw2" class="form-control" placeholder="Confirm Password" autofocus="" autocomplete="off">
+            <span asp-validation-for="UserPw2" class="text-danger"></span>
+        </div>
+
+        @if (TempData["username"] == User.Identity.Name.ToString())
+        {@*email*@
+        <div class="form-group row">
+            <label asp-for="email" class="control-label" hidden>Email: </label>
+            <label asp-for="email" for="email" class="sr-only" hidden>Email</label>
+            <input asp-for="email" type="email" id="email" class="form-control" placeholder="Email" autofocus="" value=@TempData["email"] autocomplete="off" hidden>
+            <span asp-validation-for="email" class="text-danger"></span>
+        </div>}
+    else
+    {
+        @*email*@
+        <div class="form-group row">
+            <label asp-for="email" class="control-label">Email: </label>
+            <label asp-for="email" for="email" class="sr-only">Email</label>
+            <input asp-for="email" type="email" id="email" class="form-control" placeholder="Email" autofocus="" value=@TempData["email"] autocomplete="off">
+
+        </div>
+    }
+
+
+        <b>change question/answer ?</b>
+        <p>keyed details won't be recorded unless permitted</p>
+
+        <div>
+            <label>permitted :</label>
+            <select asp-for="editqsORans" id="editqsORans">
+                <option value="0">none</option>
+                <option value="1">Edit Question</option>
+                <option value="2">Edit Answer</option>
+                <option value="3">Edit Question & Answer</option>
+            </select>
+        </div>
+
+        @*change security question*@
+        <div class="form-group row">
+            <label asp-for="question" class="control-label">security question </label>
+            <label asp-for="question" id="question" class="sr-only">security question </label>
+            <input asp-for="question" id="question" class="form-control" placeholder="Enter " autofocus="" autocomplete="off">
+
+        </div>
+
+
+
+        @*change security answer*@
+        <div class="form-group row">
+            <label asp-for="answer" class="control-label">security answer </label>
+            <label asp-for="answer" id="answer" class="sr-only">security answer </label>
+            <input asp-for="answer" id="answer" class="form-control" placeholder="security answer" autofocus="" autocomplete="off">
+
+        </div>
+
+        <!--selection for roles-->
+        <div class="form-group row">
+            <label class="control-label col-sm-\2">User Role : </label>
+            <div class="col-sm-5">
+
+                <div class="form-check form-check-inline">
+                    @if (TempData["role"].ToString() == "Doctor")
+                    {
+                        <input type="radio" class="form-check-input" id="rb1"
+                               asp-for="user_role" value="Doctor" checked />
+                    }
+                    else
+                    {
+                        <input type="radio" class="form-check-input" id="rb1"
+                               asp-for="user_role" value="Doctor" />
+                    }
+
+                    <label class="form-check-label" for="rb2">Doctor</label>
+                    <!--selection for doctor-->
+                </div>
+                <div class="form-check form-check-inline">
+                    @if (TempData["role"].ToString() == "Annotator")
+                    {
+                        <input type="radio" class="form-check-input" id="rb2"
+                               asp-for="user_role" value="Annotator" checked />
+                    }
+                    else
+                    {
+                        <input type="radio" class="form-check-input" id="rb2"
+                               asp-for="user_role" value="Annotator" />}
+
+                    <label class="form-check-label" for="rb3">Annotator</label>
+                    <!--selection for Annotator-->
+                </div>
+
+                <div class="form-check form-check-inline">
+                    @if (TempData["role"].ToString() == "Admin")
+                    {
+                        <input type="radio" class="form-check-input" id="rb3"
+                               asp-for="user_role" value="Admin" checked />
+                    }
+                    else
+                    {
+                        <input type="radio" class="form-check-input" id="rb3"
+                               asp-for="user_role" value="Admin" />}
+
+                    <label class="form-check-label" for="rb4">Admin</label>
+                    <!--selection for Admin-->
+                </div>
+            </div>
+        </div>
+
+        @*print error message*@
+        @if (ViewData["Msg"] != null)
+        {
+            <div class="form-group row">
+                <div class="offset-sm-2 col-sm-6">
+                    <div class="alert alert-@ViewData["MsgType"]">
+                        <text>@ViewData["Msg"]</text>
+                    </div>
+                </div>
+            </div>
+        }
+        <!--keep down the User Id-->
+        <div id="Arb1" asp-for="user_id" value=@TempData["id"]></div>
+
+
+
+
+
+    </div>
+    <input type="submit" class="btn btn-primary" value="Implement" />
+</form>

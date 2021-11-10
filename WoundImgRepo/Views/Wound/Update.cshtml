@@ -1,0 +1,68 @@
+﻿@model CombineClass
+<style>
+    .title {
+        font-weight: 500;
+    }
+</style>
+<form asp-controller="Wound" asp-action="Update" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-sm-4">
+            <h2>Edit Wound</h2><br>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-4">
+            <input asp-for="wound.wound_id" hidden />
+            <div class="mb-2">
+                <label class="title" asp-for="wound.name">Wound Name: </label>
+                <input class="form-control form-control-sm" asp-for="wound.name" readonly autocomplete="off">
+            </div>
+            <div class="mb-2">
+                <label class="title" asp-for="wound.wound_stage">Wound Stage: </label>
+                <input class="form-control form-control-sm" asp-for="wound.wound_stage" autocomplete="off">
+            </div>
+            <div class="mb-2">
+                <label class="title" asp-for="woundl.name">Wound Location: </label>
+                <input type="hidden" asp-for="woundl.wound_location_id" autocomplete="off">
+                <input class="form-control form-control-sm" asp-for="woundl.name">
+            </div>
+            <div class="mb-2">
+                <label class="title" asp-for="woundc.name">Wound Category: </label>
+                <input type="hidden" asp-for="woundc.wound_category_id" />
+                <select class="form-control form-control-sm" asp-items="@((SelectList)ViewData["woundCategory"])" asp-for="woundc.name">
+                    <option value="">-SELECT-</option>
+                </select>
+            </div>
+            <div class="mb-2">
+                <label class="title" asp-for="tissue.name">Wound Tissue: </label>
+                <input type="hidden" asp-for="tissue.tissue_id" />
+                <select class="form-control form-control-sm" asp-items="@((SelectList)ViewData["tissue"])" asp-for="tissue.name">
+                    <option value="">-SELECT-</option>
+                </select>
+            </div>
+            <div class="mb-2">
+                <label class="title" asp-for="woundv.name">Image Version: </label>
+                <input type="hidden" asp-for="woundv.version_id" />
+                <input class="form-control form-control-sm" asp-for="woundv.name" readonly>
+                @*(not needed since 1 wound record can only have 1 version)*@ 
+                @*<select class="form-control" asp-items="@((SelectList)ViewData["version"])" asp-for="woundv.name">
+                    <option value="">-SELECT-</option>
+                </select>*@
+            </div>
+            <div class="mb-3">
+                <label class="title" asp-for="wound.remarks">Remarks: </label>
+                <input class="form-control form-control-sm" asp-for="wound.remarks" autocomplete="off">
+            </div>
+            <div class="mb-2">
+                <input class="btn btn-primary" type="submit" value="Update">
+            </div>
+        </div>
+        <div class="col-sm-4 mt-4 mr-5">
+            <div class="border">
+                <img src="/photos/@Model.image.img_file" class="img-fluid" alt="Responsive image" style="width:100%; height:auto;" />
+            </div>
+        </div>
+    </div>
+</form>
+

@@ -1,0 +1,122 @@
+﻿@model List<Tissue>
+@{ Layout = "_Layout"; }
+@if (TempData["Msg"] != null)
+{
+    <div class="alert alert-@TempData["MsgType"]">
+        @TempData["Msg"]
+    </div>}
+
+@section MoreScripts {
+    <script>
+        function addTissue() {
+            var name = $('#tissueName').val();
+            window.location = 'AddTissue?name=' + name;
+        }
+
+        function editTissue() {
+            var name = $('#editTissueName').val();
+            var id = $('#editTissueId').val();
+            window.location = 'EditTissue?name=' + name + '&id=' + id;
+        }
+
+        function setEditTissueName(id, name) {
+            $('#editTissueId').val(id);
+            $('#editTissueName').val(name);
+        }
+    </script>
+}
+
+<h2 class="mb-4">Tissue Type</h2>
+
+<div class="mb-4 mt-4">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTissueModal">
+        Add
+    </button>
+</div>
+<!-- add version modal -->
+<div class="modal fade" id="addTissueModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Add new tissue type</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-sm-4">Tissue Type:</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" type="text" id="tissueName" autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-4 col-sm-6">
+                        <button id="tissueid" type="button" class="btn btn-primary" onclick="addTissue()">
+                            Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- edit version modal -->
+<div class="modal fade" id="editTissueModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Edit tissue type</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-sm-4">New tissue type:</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" type="text" id="editTissueName" autocomplete="off">
+                        <input class="form-control" type="hidden" id="editTissueId">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-4 col-sm-6">
+                        <button type="button" class="btn btn-primary" onclick="editTissue()">
+                            Update
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-condensed table-hover table-striped">
+    <thead>
+        <tr>
+            <th scope="col" width="20%">Tissue Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Tissue t in Model)
+        {
+            <tr scope="row">
+                <td width="20%">@t.name</td>
+                <td width="20%">
+                    <a asp-route-id="@t.tissue_id"
+                       data-toggle="modal"
+                       data-target="#editTissueModal"
+                       onclick="setEditTissueName(@t.tissue_id,'@t.name')">
+                        Edit
+                    </a>
+                <td width="20%">
+                    <a asp-controller="Admin"
+                       asp-action="DeleteTissue"
+                       asp-route-id="@t.tissue_id"
+                       onclick="return confirm('Delete Tissue [@t.name]')">
+                        Delete
+                    </a>
+            </tr>
+        }
+    </tbody>
+</table>
