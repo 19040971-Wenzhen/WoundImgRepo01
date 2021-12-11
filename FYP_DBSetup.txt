@@ -1,0 +1,83 @@
+DROP TABLE IF EXISTS annotation;
+DROP TABLE IF EXISTS wound;
+DROP TABLE IF EXISTS useracc;
+DROP TABLE IF EXISTS version;
+DROP TABLE IF EXISTS wound_location;
+DROP TABLE IF EXISTS wound_category;
+DROP TABLE IF EXISTS tissue;
+DROP TABLE IF EXISTS image;
+
+CREATE TABLE image
+(
+   image_id  INT PRIMARY KEY IDENTITY,
+   name      VARCHAR(100) NOT NULL,
+   type      VARCHAR(100) NOT NULL,
+   img_file  VARCHAR(100) NOT NULL 
+);
+
+CREATE TABLE tissue
+(
+   tissue_id  INT PRIMARY KEY IDENTITY,
+   name       VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE wound_category
+(
+   wound_category_id  INT PRIMARY KEY IDENTITY,
+   name               VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE wound_location
+(
+   wound_location_id  INT PRIMARY KEY IDENTITY,
+   name               VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE version
+(
+   version_id  INT PRIMARY KEY IDENTITY,
+   name        VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE useracc
+(
+   user_id         INT PRIMARY KEY IDENTITY,
+   username        VARCHAR(100) NOT NULL,
+   email       	   VARCHAR(100) NOT NULL,
+   password        VARBINARY(100) NOT NULL,
+   user_role       VARCHAR(45) NOT NULL,
+   last_login      DATETIME NULL,
+   status          INT NOT NULL,
+   question        VARCHAR(200) NOT NULL,
+   answer          VARBINARY(200) NOT NULL
+);
+
+CREATE TABLE wound
+(
+   wound_id          INT PRIMARY KEY IDENTITY,
+   name              VARCHAR(100) NOT NULL,
+   wound_stage       VARCHAR(100) NOT NULL,
+   remarks           VARCHAR(200) NULL,
+   wound_category_id INT FOREIGN KEY REFERENCES wound_category(wound_category_id),
+   wound_location_id INT FOREIGN KEY REFERENCES wound_location(wound_location_id),
+   tissue_id         INT FOREIGN KEY REFERENCES tissue(tissue_id),
+   version_id        INT FOREIGN KEY REFERENCES version(version_id),
+   image_id          INT FOREIGN KEY REFERENCES image(image_id),
+   user_id           INT FOREIGN KEY REFERENCES useracc(user_id)
+);
+
+CREATE TABLE annotation
+(
+   annotation_id INT PRIMARY KEY IDENTITY,
+   mask_image_id INT NOT NULL,
+   wound_id      INT FOREIGN KEY REFERENCES wound(wound_id),
+   user_id       INT FOREIGN KEY REFERENCES useracc(user_id),
+   annotation_image_id INT FOREIGN KEY REFERENCES image(image_id)
+);
+
+SET IDENTITY_INSERT useracc ON;
+INSERT INTO useracc(user_id, username, email, password, user_role, status, question, answer) VALUES
+(1, 'Benny', 'benny@gmail.com', HASHBYTES('SHA1', 'adminpw'), 'Admin', 1, 'qs', HASHBYTES('SHA1', 'an')),
+(2, 'Paul',  'paul@yahoo.com', HASHBYTES('SHA1', 'password1'), 'Annotator', 1, 'qs', HASHBYTES('SHA1', 'an')),
+(3, 'John',  'john@yahoo.com', HASHBYTES('SHA1', 'password2'), 'Doctor', 1, 'qs', HASHBYTES('SHA1', 'an'));
+SET IDENTITY_INSERT useracc OFF;
